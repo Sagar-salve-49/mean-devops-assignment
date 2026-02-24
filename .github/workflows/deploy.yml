@@ -17,10 +17,10 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
       - name: Build Backend
-        run: docker build -t nehalwandhare/backend:latest ./backend
+        run: docker build -t sagarsalve49//mean-backend:latest ./backend
 
       - name: Build Frontend
-        run: docker build -t nehalwandhare/frontend:latest ./frontend
+        run: docker build -t sagarsalve49//mean-frontend:latest ./frontend
 
       - name: Push Images
         run: |
