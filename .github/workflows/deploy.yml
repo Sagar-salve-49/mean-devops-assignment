@@ -17,12 +17,13 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
       - name: Build Backend
-        run: docker build -t sagarsalve49//mean-backend:latest ./backend
+        run: docker build -t ${{ secrets.DOCKER_USER }}/mean-backend:latest ./backend
 
       - name: Build Frontend
-        run: docker build -t sagarsalve49//mean-frontend:latest ./frontend
+        run: docker build -t ${{ secrets.DOCKER_USER }}/mean-frontend:latest ./frontend
 
-      - name: Push Images
-        run: |
-          docker push sagarsalve49//mean-backend:latest
-          docker push sagarsalve49//mean-frontend:latest
+      - name: Push Backend
+        run: docker push ${{ secrets.DOCKER_USER }}/mean-backend:latest
+
+      - name: Push Frontend
+        run: docker push ${{ secrets.DOCKER_USER }}/mean-frontend:latest
