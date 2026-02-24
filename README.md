@@ -129,6 +129,6 @@ port 5000
 
 EC2 Instance Screenshot
 
-![EC2 Instance](screenshots/ec2{_instance.png.png)
+![EC2 Instance](screenshots/ec2_instance.png.png)
 
 
