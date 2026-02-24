@@ -1,0 +1,28 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+      - name: Build Backend
+        run: docker build -t nehalwandhare/backend:latest ./backend
+
+      - name: Build Frontend
+        run: docker build -t nehalwandhare/frontend:latest ./frontend
+
+      - name: Push Images
+        run: |
+          docker push sagarsalve49//mean-backend:latest
+          docker push sagarsalve49//mean-frontend:latest
