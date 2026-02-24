@@ -132,3 +132,112 @@ EC2 Instance Screenshot
 ![EC2 Instance](screenshots/ec2_instance.png.png)
 
 
+🔄 CI/CD Pipeline (GitHub Actions)
+
+Workflow File: .github/workflows/deploy.yml
+
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+      - name: Build Backend
+        run: docker build -t ${{ secrets.DOCKER_USER }}/mean-backend:latest ./backend
+
+      - name: Build Frontend
+        run: docker build -t ${{ secrets.DOCKER_USER }}/mean-frontend:latest ./frontend
+
+      - name: Push Backend
+        run: docker push ${{ secrets.DOCKER_USER }}/mean-backend:latest
+
+      - name: Push Frontend
+        run: docker push ${{ secrets.DOCKER_USER }}/mean-frontend:latest
+
+🔐 GitHub Secrets Used
+
+DOCKER_USER
+
+DOCKER_PASS (Docker Hub Access Token)
+
+📦 Docker Hub Repositories
+
+sagarsalve49/mean-backend
+
+sagarsalve49/mean-frontend
+
+Docker Hub Screenshot
+
+![Docker Hub](screenshots/dockerHub.png.png)
+
+
+✅ CI/CD Success Screenshot
+
+![GitHub Actions Success](screenshots/github_actions.png.png)
+
+
+🚀 Deployment on EC2
+
+After images are pushed:
+
+docker-compose pull
+docker-compose up -d
+
+Verify running containers:
+
+docker ps
+
+Running Containers Screenshot
+
+![Docker PS](screenshots/running_containrs.png.png)
+
+
+🌐 Application Access
+
+http://18.201.31.226
+
+Application Screenshot
+
+![Application UI](screenshots/app_running.png.png)
+
+🔁 End-to-End Automation Flow
+
+Developer pushes code to GitHub
+
+GitHub Actions builds Docker images
+
+Images pushed to Docker Hub
+
+EC2 pulls latest images
+
+Containers restarted automatically
+
+🛠️ Technologies Used
+
+Node.js
+
+Angular
+
+MongoDB
+
+Docker
+
+Docker Compose
+
+GitHub Actions
+
+AWS EC2
+
+Nginx
